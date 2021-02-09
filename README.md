@@ -2,12 +2,11 @@
 [![cljdoc badge](https://cljdoc.org/badge/clj-commons/friend)](https://cljdoc.org/d/clj-commons/friend)
 [![CircleCI](https://circleci.com/gh/clj-commons/friend.svg?style=svg)](https://circleci.com/gh/clj-commons/friend)
 
-
-# Friend  
-
 # Maintenance mode
 
 This library is in maintenance mode. That means that it's no longer actively developed, but we still provide maintenance. If you're looking for an actively developed authentication lib, please consider using [buddy](https://github.com/funcool/buddy)
+
+# Friend
 
 An extensible authentication and authorization library for
 [Clojure](http://clojure.org)/[Ring](http://github.com/ring-clojure/ring)
