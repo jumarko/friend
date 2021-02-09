@@ -89,8 +89,6 @@ Friend has been built with one eye on a number of frameworks.
 
 Very stable, widely-used in production AFAIK.
 
-Note: while actively maintained, [Friend is in search of a new maintainer](https://groups.google.com/forum/#!topic/clojure-sec/ceMhYPR0G60).
-
 ### Changelog
 
 Available [here](http://github.com/cemerick/friend/blob/master/CHANGES.md).
