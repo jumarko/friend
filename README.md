@@ -91,7 +91,7 @@ Very stable, widely-used in production AFAIK.
 
 ### Changelog
 
-Available [here](http://github.com/cemerick/friend/blob/master/CHANGES.md).
+Available [here](http://github.com/clj-commons/friend/blob/master/CHANGES.md).
 
 ### Known issues
 
@@ -109,7 +109,7 @@ Friend is available in Clojars. Add this `:dependency` to your Leiningen
 `project.clj`:
 
 ```clojure
-[com.cemerick/friend "0.3.193"]
+[clj-commons/friend "0.3.193"]
 ```
 
 Or, add this to your Maven project's `pom.xml`:
@@ -121,7 +121,7 @@ Or, add this to your Maven project's `pom.xml`:
 </repository>
 
 <dependency>
-  <groupId>com.cemerick</groupId>
+  <groupId>clj-commons</groupId>
   <artifactId>friend</artifactId>
   <version>0.3.193</version>
 </dependency>
@@ -230,7 +230,7 @@ regular Ring handler function, except that a workflow function can _opt_
 to return an _authentication map_ instead of a Ring response if a
 request is authenticated.  A diagram may help:
 
-![](https://github.com/cemerick/friend/raw/master/docs/workflow.png)
+![](https://github.com/clj-commons/friend/raw/master/docs/workflow.png)
 
 You can define any number of workflows in a `:workflows` kwarg to
 `authenticate`.  Incoming requests are always run through the configured
