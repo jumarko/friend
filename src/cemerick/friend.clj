@@ -1,8 +1,7 @@
 (ns cemerick.friend
   (:require [cemerick.friend.util :as util]
-            [clojure.set :as set])
-  (:use (ring.util [response :as response :only (redirect)])
-        [slingshot.slingshot :only (throw+ try+)])
+            [ring.util.response :as response]
+            [slingshot.slingshot :refer [throw+ try+]])
   (:refer-clojure :exclude (identity)))
 
 (defn merge-authentication
@@ -105,8 +104,7 @@ Equivalent to (complement current-authentication)."}
     ::auth-config
     :login-uri
     (#(str (:context request) %))
-    (util/resolve-absolute-uri request)
-    ring.util.response/redirect
+    response/redirect
     (assoc :session (:session request))
     (assoc-in [:session ::unauthorized-uri] (util/original-url request))))
 

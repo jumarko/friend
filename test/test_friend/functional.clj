@@ -34,7 +34,7 @@
           :let [resp (http/get url)]]
     (is (http/success? resp))
     (is (= (page-bodies uri) (:body resp))))
-  
+
   (let [api-resp (http/get (url "/free-api") {:as :json})]
     (is (http/success? api-resp))
     (is (= {:data 99} (:body api-resp)))))
@@ -72,14 +72,14 @@
       (is (= (url "/user/account?query-string=test") (-> resp :headers (get "location")))))
     (check-user-role-access)
     (is (= {:roles ["test-friend.mock-app/user"]} (:body (http/get (url "/echo-roles") {:as :json}))))
-    
+
     ; deny on admin role
     (try+
       (http/get (url "/admin"))
       (assert false) ; should never get here
       (catch [:status 403] _
         (is true)))
-    
+
     (testing "logout blocks access to privileged routes"
       (is (= (page-bodies "/") (:body (http/get (url "/logout")))))
       (is (= (page-bodies "/login") (:body (http/get (url "/user/account"))))))))
@@ -100,13 +100,12 @@
         (is (= "auth-data" (post-session-data "auth-data")))
         (is (= "auth-data" (get-session-data)))
         (check-user-role-access)
-        
+
         (http/get (url "/logout"))
         (let [should-be-login-redirect (http/get (url "/user/account")
                                                  {:follow-redirects false})]
           (is (= 302 (:status should-be-login-redirect)))
-          (is (re-matches #"http://localhost:\d+/login"
-                (-> should-be-login-redirect :headers (get "location")))))
+          (is (=  "/login" (-> should-be-login-redirect :headers (get "location")))))
         ; TODO should logout blow away the session completely?
         (is (= "auth-data" (get-session-data)))))))
 
@@ -118,7 +117,7 @@
       (assert false) ; should never get here
       (catch [:status 403] resp
         (is (= "Sorry, you do not have access to this resource." (:body resp)))))
-    
+
     (http/post (url "/login") {:form-params {:username "root" :password "admin_password"}})
     (is (= (page-bodies "/hook-admin") (:body (http/get (url "/hook-admin")))))))
 
@@ -135,7 +134,7 @@
 (deftest admin-login
   (binding [clj-http.core/*cookie-store* (clj-http.cookies/cookie-store)]
     (is (= (page-bodies "/login") (:body (http/get (url "/admin")))))
-    
+
     (http/post (url "/login") {:form-params {:username "root" :password "admin_password"}})
     (is (= (page-bodies "/admin") (:body (http/get (url "/admin")))))
     (check-user-role-access)
@@ -151,13 +150,13 @@
   (binding [clj-http.core/*cookie-store* (clj-http.cookies/cookie-store)]
     (is (= (page-bodies "/login") (:body (http/get (url "/admin")))))
     (http/post (url "/login") {:form-params {:username "root" :password "admin_password"}})
-    
+
     (try+
       (http/get (url "/wat"))
       (assert false)
       (catch [:status 404] e))
     (is (= (page-bodies "/admin") (:body (http/get (url "/admin")))))
-    
+
     (is (= (page-bodies "/") (:body (http/get (url "/logout")))))
     (is (= (page-bodies "/login") (:body (http/get (url "/admin")))))))
 

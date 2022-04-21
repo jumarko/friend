@@ -1,8 +1,8 @@
 (ns test-friend.interactive-form
-  (:require [cemerick.friend :as friend])
-  (:use clojure.test
-        ring.mock.request
-        [cemerick.friend.workflows :only (interactive-form)]))
+  (:require [cemerick.friend :as friend]
+            [clojure.test :refer :all]
+            [ring.mock.request :as mock]
+            [cemerick.friend.workflows :refer (interactive-form)]))
 
 (deftest form-workflow
   (let [got-creds (atom false)
@@ -14,28 +14,28 @@
                                                         (when (and (= "open sesame" password)
                                                                    (= "Aladdin" username))
                                                           {:identity username})))]
-    (is (nil? (form-handler (request :get login-uri))))
+    (is (nil? (form-handler (mock/request :get login-uri))))
 
     (is (= {:status 302
-            :headers {"Location" "http://localhost/my_login?&login_failed=Y&username="}
+            :headers {"Location" "/my_login?&login_failed=Y&username="}
             :body ""}
-           (form-handler (request :post login-uri))))
+           (form-handler (mock/request :post login-uri))))
 
     (is (= {:status 302
-            :headers {"Location" "http://localhost/my_login?&login_failed=Y&username=foo"}
+            :headers {"Location" "/my_login?&login_failed=Y&username=foo"}
             :body ""}
-           (form-handler (assoc (request :post login-uri)
+           (form-handler (assoc (mock/request :post login-uri)
                                 :params {:username "foo"}
                                 :form-params {"username" "foo"}))))
 
     (is (= {:status 302
-            :headers {"Location" "http://localhost/my_login?&login_failed=Y&username=foobar"}
+            :headers {"Location" "/my_login?&login_failed=Y&username=foobar"}
             :body ""}
-           (form-handler (assoc (request :post login-uri)
+           (form-handler (assoc (mock/request :post login-uri)
                                 :params {:username "foo"}
                                 :form-params {"username" "foobar"}))))
 
-    (let [auth (form-handler (assoc (request :post login-uri)
+    (let [auth (form-handler (assoc (mock/request :post login-uri)
                                     :params {:username "foo"
                                              :password "open sesame"}
                                     :form-params {"username" "Aladdin"

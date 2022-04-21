@@ -11,10 +11,3 @@
 
 ; this was never _really_ part of the API, was implemented (badly) before req/request-url was available
 (def ^:deprecated original-url req/request-url)
-
-(defn resolve-absolute-uri
-  [^String uri request]
-  (-> (original-url request)
-    java.net.URI.
-    (.resolve uri)
-    str))
