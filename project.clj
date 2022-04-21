@@ -21,7 +21,9 @@
                                   [compojure "1.1.5"]
                                   [ring "1.2.0"]
                                   [robert/hooke "1.3.0"]
-                                  [clj-http "0.3.6"]]}
+                                  [clj-http "0.3.6"]
+                                  ;; test/.../functional.clj uses the jetty adapter
+                                  [ring/ring-jetty-adapter "1.9.5"]]}
              :sanity-check {:aot :all
                             :warn-on-reflection true
                             :compile-path "target/sanity-check-aot"}
