@@ -69,7 +69,8 @@
       ; clj-http *should* redirect us, but isn't yet; working on it: 
       ; https://github.com/dakrone/clj-http/issues/57
       (is (http/redirect? resp))
-      (is (= (url "/user/account?query-string=test") (-> resp :headers (get "location")))))
+      (is (= "/user/account?query-string=test"
+             (-> resp :headers (get "location")))))
     (check-user-role-access)
     (is (= {:roles ["test-friend.mock-app/user"]} (:body (http/get (url "/echo-roles") {:as :json}))))
 

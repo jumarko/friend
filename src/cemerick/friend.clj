@@ -106,7 +106,7 @@ Equivalent to (complement current-authentication)."}
     (#(str (:context request) %))
     response/redirect
     (assoc :session (:session request))
-    (assoc-in [:session ::unauthorized-uri] (util/original-url request))))
+    (assoc-in [:session ::unauthorized-uri] (util/relative-url request))))
 
 (defn authenticate-response
   "Adds to the response's :session for responses with a :friend/ensure-identity-request key."

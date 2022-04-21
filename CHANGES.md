@@ -1,5 +1,11 @@
 ## [Friend](http://github.com/cemerick/friend) changelog
 
+### `0.3.x`
+
+* HTTP redirect responses now don't enforce absolute URLs - this is a revert of the change made in 0.1.2.
+  See https://github.com/clj-commons/friend/issues/4.
+
+
 ### `0.3.0`
 
 * The "classic" OpenId (i.e. OpenId 1.1/2.0) workflow provided by `cemerick.friend.openid` has been
