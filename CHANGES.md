@@ -3,6 +3,9 @@
 ### `0.3.x`
 
 * HTTP redirect responses now don't enforce absolute URLs - this is a revert of the change made in 0.1.2.
+  Note that if you are using ring-defaults, you need to 
+  [set `:absolute-redirects` to `false`](https://github.com/ring-clojure/ring-defaults#customizing).
+  (a new [issue submitted](https://github.com/ring-clojure/ring-defaults/issues/39) for ring-defaults)
   See https://github.com/clj-commons/friend/issues/4.
 
 
